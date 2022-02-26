@@ -6,9 +6,9 @@
   Include:
     <% @all_ratings.each do |rating| %>
     <%= rating %>
-    <%= check_box_tag "ratings[]", rating, id: "rating_#{rating}" %>
+    <%= check_box_tag "ratings[#{rating.to_s}]", rating.to_s,  (@available_ratings.include? rating), id: "rating_#{rating.to_s}" %>
     <%end %>
-  <%= submit_tag 'Refresh', :class => 'btn btn-primary' %>
+  <%= submit_tag 'Refresh', id: 'ratings_submit', :class => 'btn btn-primary' %>
 <% end %>
 <table class="table table-striped col-md-12" id="movies">
   <thead>
@@ -24,7 +24,7 @@
                   id: 'release_date_header',
                   :class => ("hilite text-white" if params[:sort] && params[:sort].to_sym == 'release_date'.to_sym) || 'default'  %>
     </th>
-    <th>Rating</th>
+    <th>More Info</th>
   </tr>
   </thead>
   <tbody>
