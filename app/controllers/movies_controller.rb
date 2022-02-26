@@ -7,9 +7,10 @@ class MoviesController < ApplicationController
     end
   
     def index
+      session.update(params)
       @all_ratings = Movie.select(:rating).map(&:rating).uniq
-      @selected_ratings = params[:ratings]&.keys || @all_ratings
-      @movies = Movie.where(rating: @selected_ratings).order(params[:sort])
+      @selected_ratings = session[:ratings]&.keys || @all_ratings
+      @movies = Movie.where(rating: @selected_ratings).order(session[:sort])
       @available_ratings =  @selected_ratings || @all_ratings
     end
   
