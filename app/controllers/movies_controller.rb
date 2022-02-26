@@ -8,6 +8,9 @@ class MoviesController < ApplicationController
   
     def index
       session.update(params)
+      unless session[:sort] == params[:sort] && session[:ratings] == params[:ratings]
+        redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
+      end
       @all_ratings = Movie.select(:rating).map(&:rating).uniq
       @selected_ratings = session[:ratings]&.keys || @all_ratings
       @movies = Movie.where(rating: @selected_ratings).order(session[:sort])
