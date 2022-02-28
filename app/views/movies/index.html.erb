@@ -13,19 +13,18 @@
 <table class="table table-striped col-md-12" id="movies">
   <thead>
   <tr>
-    <% columns_to_show = %w[title rating release_date more_info] %>
-    <% columns_for_sort = %w[title release_date] %>
-    <% columns_to_show.each do |column_name| %>
-      <th>
-        <%=
-        if columns_for_sort.include? column_name
-          link_to column_name.titleize, movies_path(:sort => column_name.to_sym), id: "#{column_name}_header",
-                  class: ("hilite text-white" if params[:sort]&.to_sym == column_name.to_sym)
-        else
-          column_name.titleize
-        end %>
-      </th>
-    <% end %>
+    <th >
+      <%= link_to 'title'.titleize , movies_path(sort: 'title'.to_sym),
+                  id: 'title_header',
+                  :class => ("hilite text-white" if params[:sort] && params[:sort].to_sym == 'title'.to_sym) || 'default'  %>
+    </th>
+    <th>Rating</th>
+    <th >
+      <%= link_to 'release_date'.titleize, movies_path(sort: 'release_date'.to_sym),
+                  id: 'release_date_header',
+                  :class => ("hilite text-white" if params[:sort] && params[:sort].to_sym == 'release_date'.to_sym) || 'default'  %>
+    </th>
+    <th>More Info</th>
   </tr>
   </thead>
   <tbody>
